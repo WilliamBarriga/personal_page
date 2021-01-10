@@ -30,7 +30,7 @@ function alerta_enter(event) {
     };
 };
 
-function limpiado(correo, nombre, mensaje){
+function limpiado(correo, nombre, mensaje) {
     correo.value = '';
     nombre.value = '';
     mensaje.value = '';
@@ -50,21 +50,21 @@ function prueba(e) {
     enviopost(obtener_formulario())
 };
 
-function enviopost(info){
+function enviopost(info) {
+    var url = 'https://uakwmk62h9.execute-api.us-east-2.amazonaws.com/new/send'
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    //var raw = JSON.stringify({"remitente":"daniel","cuerpo":"este es el body"});
-
     var requestOptions = {
-     method: 'POST',
-      headers: myHeaders,
-      body: info,
-      redirect: 'follow'
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify(info),
+        redirect: 'follow'
     };
 
-    fetch("https://ae6ucmv05j.execute-api.us-east-2.amazonaws.com/testing/test", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+    fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .then(alert('Se a enviado la informacion de forma correcta'))
+        .catch(error => console.log('error', error) && alert('a ocurrido un error porfavor intente mas'));
 }
